@@ -31,11 +31,6 @@ public class App2 {
 class ListEditor extends Thread {
 
     List<Integer> l;
-
-    public synchronized void safeAdd(Integer i) {
-        l.add(i);
-    }
-
     private final int count;
 
     public ListEditor(List<Integer> l, int count) {
@@ -48,7 +43,6 @@ class ListEditor extends Thread {
         synchronized (l){
             for (int i=0; i<count;i++) {
                 l.add(123);
-                //safeAdd(123);
             }
         }
     }
