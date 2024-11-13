@@ -100,10 +100,14 @@ class BankTransfer implements Runnable {
      */
     @Override
     public void run() {
+        // Lock-order reversal problem. Poistetaan kehäodotus, lukitaan tilit aina samassa järjestyksessä tilinumeron mukaan.
+        Account lock1 = from.compareTo(to) > 0 ? to : from;
+        Account lock2 = from.compareTo(to) > 0 ? from : to;
         // Lukitan 1. tili
-        synchronized (from) {
+        synchronized (lock1) {
             // Lukko ensimmäiseen tiliin saatu, aloitetaan toisen tilin lukitus
-            synchronized (to) {
+
+            synchronized (lock2) {
                 // Säie sai yksinoikeudet molempiin tileihin, tarkistetaan tilien kate ja suoritetaan siirto,
                 // jos lakiehdot täyttyvät
                 if ((from.getBalance() - amount) > 0 && (to.getBalance() + amount) <= 1000) {
@@ -121,13 +125,14 @@ class BankTransfer implements Runnable {
                     to.deposit(amount);
                 }
             }
+
         }
         // Tilisiirto suoritettu ja lukot avattu
     }
 
 }
 
-/**
+/**z
  * Pankkitiliä kuvaava luokka
  */
 class Account implements Comparable<Account> {
