@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Hub implements Runnable {
 
-    private Map<Integer, Light> lights = new HashMap<>();
+    private Map<Integer, Light> lights = new ConcurrentHashMap<>();
     private Random rnd = new Random();
     // Mikäli terminaalisi ei osaa tulostaa lamppujen tilaa oikein, voit kokeilla asettaa tämän arvoon "true"
     private boolean ALTERNATE_OUTPUT = false;
