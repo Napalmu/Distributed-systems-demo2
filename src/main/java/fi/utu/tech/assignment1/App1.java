@@ -19,21 +19,25 @@ public class App1 {
                 e.printStackTrace();
             }
         });
-         
+
         System.out.printf("Got %d, expected %d%n", sharedCount.getCount(), threadCount);
     }
 }
 
 class Count {
-    private  int count = 0;
+    private int count = 0;
 
     public int getCount() {
             return count;
-
     }
 
     public void setCount(int count) {
             this.count = count;
+    }
+
+    public synchronized void incrementByOne(){
+            int oldCount = this.count;
+            setCount(oldCount+1);
     }
 }
 
@@ -51,8 +55,8 @@ class Counter extends Thread {
          * This thread's purpose in life is to 
          * increase the value of the shared count by one
          */
-        synchronized (count){
-        int oldCount = count.getCount();
+
+        //int oldCount = count.getCount();
         // Alla oleva sleep ei ole pakollinen ongelman ilmenemiselle,
         // mutta se lisää esiintymisen todennäköisyyttä
         try {
@@ -61,6 +65,6 @@ class Counter extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        count.setCount(oldCount + 1);
-    }}
+        count.incrementByOne();
+    }
 }
