@@ -14,7 +14,7 @@ public class App3 {
         // Luodaan yhteinen lista, johon automaattitarkastajat lisäilevät tarkistettuja tehtäviä
         // ja josta studyRegistrar niitä lukee
         // List<Submission> gradedSubmissions = synchronizedList(new ArrayList<Submission>(30));
-        LinkedBlockingQueue<Submission> gradedSubmissions = new LinkedBlockingQueue<>(20);
+        LinkedBlockingQueue<Submission> gradedSubmissions = new LinkedBlockingQueue<>(30);
         
         // Luodaan 50 automaattitarkistajaa, jolle jokaiselle annetaan 20 tehtävää tarkistettavaksi
         // Jokainen automaattitarkastaja saa viittauksen samaan gradedSubmissions-listaan, johon tarkistetut palautukset lisätään
