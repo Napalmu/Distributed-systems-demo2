@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static java.util.Collections.synchronizedList;
+
 public class App2 {
 
     public static void main(String[] args) {
@@ -29,6 +31,11 @@ public class App2 {
 class ListEditor extends Thread {
 
     List<Integer> l;
+
+    public synchronized void safeAdd(Integer i) {
+        l.add(i);
+    }
+
     private final int count;
 
     public ListEditor(List<Integer> l, int count) {
@@ -38,8 +45,11 @@ class ListEditor extends Thread {
 
     @Override
     public void run() {
-        for (int i=0; i<count;i++) {
-            l.add(123);
+        synchronized (l){
+            for (int i=0; i<count;i++) {
+                l.add(123);
+                //safeAdd(123);
+            }
         }
     }
 }
