@@ -27,7 +27,6 @@ public class App2 {
     }
 }
 
-
 class ListEditor extends Thread {
 
     List<Integer> l;
