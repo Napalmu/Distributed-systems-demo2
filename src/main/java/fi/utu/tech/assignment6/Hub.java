@@ -84,9 +84,10 @@ public class Hub implements Runnable {
      * Turn on all the lights
      */
     public void turnOnAllLights() {
-        for (var l : lights.values()) {
-            l.turnOn();
-        }
+        synchronized(lights){
+            for (var l : lights.values()) {
+                l.turnOn();
+            }}
     }
 
     /**

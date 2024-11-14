@@ -43,7 +43,7 @@ public class Light {
         return powerOn;
     }
 
-    public String toString() {
+    public synchronized String toString() {
         return String.format("Light %d is set %s", id, isPowerOn() ? "ON": "OFF");
     }
     
